@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Flashcard;
@@ -33,10 +34,20 @@ public class FlashcardController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Flashcard>> findAll() {
-		List<Flashcard> all = flashcardDao.findAll();
+	public ResponseEntity<List<Flashcard>> findAll(@RequestParam(required = false) Integer[] ids) {
+		if(ids == null) {
+			List<Flashcard> all = flashcardDao.findAll();
+			
+			return ResponseEntity.ok(all);
+		}
 		
-		return ResponseEntity.ok(all);
+		List<Flashcard> some = this.flashcardDao.findByIdIn(ids);
+		
+		if(some.size() != ids.length) {
+			return ResponseEntity.badRequest().body(some);
+		}
+		
+		return ResponseEntity.ok(some);
 	}
 	
 	@GetMapping("/{id}")
