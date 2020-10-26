@@ -12,4 +12,7 @@ public interface FlashcardClient {
 
 	@GetMapping
 	public List<Flashcard> findAll();
+	
+	@GetMapping("/port")
+	public String getPort();
 }

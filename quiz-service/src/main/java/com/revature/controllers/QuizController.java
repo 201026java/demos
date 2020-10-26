@@ -25,6 +25,11 @@ public class QuizController {
 	@Autowired
 	private FlashcardClient flashcardClient;
 	
+	@GetMapping("/port")
+	public String retrievePort() {
+		return this.flashcardClient.getPort();
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<Quiz>> findAll() {
 		List<Quiz> all = quizDao.findAll();
