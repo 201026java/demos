@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.clients.FlashcardClient;
+import com.revature.models.Flashcard;
 import com.revature.models.Quiz;
 import com.revature.repositories.QuizRepository;
 
@@ -20,8 +22,8 @@ public class QuizController {
 	@Autowired
 	private QuizRepository quizDao;
 	
-//	@Autowired
-//	private FlashcardRepository flashcardDao;
+	@Autowired
+	private FlashcardClient flashcardClient;
 	
 	@GetMapping
 	public ResponseEntity<List<Quiz>> findAll() {
@@ -57,14 +59,14 @@ public class QuizController {
 		return ResponseEntity.status(201).body(quiz);
 	}
 	
-//	@GetMapping("/cards")
-//	public ResponseEntity<List<Flashcard>> getCards() {
-//		List<Flashcard> all = flashcardDao.findAll();
-//		
-//		if(all.isEmpty()) {
-//			return ResponseEntity.noContent().build();
-//		}
-//		
-//		return ResponseEntity.ok(all);
-//	}
+	@GetMapping("/cards")
+	public ResponseEntity<List<Flashcard>> getCards() {
+		List<Flashcard> all = flashcardClient.findAll();
+		
+		if(all.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		
+		return ResponseEntity.ok(all);
+	}
 }
