@@ -1,29 +1,8 @@
-server:
-  port: 8080
 spring:
   application:
     name: gateway
   cloud:
-    gateway:
-      default-filters:      - PrefixPath=/
-      routes:
-      # ======================
-      - id: flashcard
-        uri: lb://flashcard
-        predicates:        - Path=/flashcard/**
-        filters:
-        - StripPrefix=1
-      # ======================
-      - id: quiz
-        uri: lb://quiz
-        predicates:
-        - Path=/quiz/**
-        filters:
-        - StripPrefix=1
-      # ======================
-      - id: quiz-composite
-        uri: lb://quiz-composite
-        predicates:
-        - Path=/composite/**
-        filters:
-        - StripPrefix=1
+    config:
+      discovery:
+        enabled: true
+        serviceId: config
