@@ -20,3 +20,10 @@ spring:
         - Path=/quiz/**
         filters:
         - StripPrefix=1
+      # ======================
+      - id: quiz-composite
+        uri: lb://quiz-composite
+        predicates:
+        - Path=/composite/**
+        filters:
+        - StripPrefix=1
