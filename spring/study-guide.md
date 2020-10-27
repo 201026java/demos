@@ -1,0 +1,163 @@
+# Week 6 Study Guide
+Topics Covered: Spring Framework & REST (Detailed)
+Review the material covered from the week, which is listed out below.
+
+Leverage the "How to do well in QC" Document that is pinned to the Training channel on Slack.
+
+In particular, be able to answer "Tell me about your experience with X?", where X is any of the topics listed below.
+
+Be able to provide overall reasons `Why` certain features are available. Such as what problems they solve.
+
+## Topics
+- [Spring](notes/Spring.md)
+  - Spring Modules
+    - Spring AOP
+    - Spring MVC
+    - Spring Core
+    - Spring Context
+    - Spring Beans
+    - etc
+  - Core Container
+    - Spring Core
+    - Spring Beans
+    - Spring Context
+    - Contains standard Dependency Injection Features
+  - Spring Beans
+    - Sterotype Annotations
+      - `@Component` is a general Spring Bean
+      - `@Controller` is a Spring Bean for the Controller layer
+      - `@Service` is a Spring Bean for the Service layer
+      - `@Repository` is a Spring Bean for the DAO layer
+      - However, they all do the same thing
+        - SpringMVC adds configuration to `@Controller`
+        - SpringORM adds configuration to `@Repository`
+  - Dependency Injection
+  - Inversion of Control
+    - IoC Container (or Spring Container)
+    - BeanFactory
+    - ApplicationContext
+  - Configuration
+    - XML Configuration
+    - Annotation-Based Configuration (only ApplicationContext)
+    - Java Configuration
+      - @Configuration
+      - @Bean
+    - Autowiring
+      - byName
+      - byType
+        - @Qualifier, but not recommended
+  - BeanFactory vs ApplicationContext
+  - Spring Bean LifeCycle
+    - Quite long
+    - Study closely
+  - Bean Scopes
+    - Singleton (Default)
+    - Prototype
+    - Web-Aware scopes
+      - Request
+      - Session
+      - Used to have GlobalSession
+        - But has now been Deprecated as of Spring 5
+      - Instead, we have Application & WebSocket
+  - Injection Types
+    - Constructor Injection
+    - Setter Injection
+    - Field Injection
+    - You might read about Interface Injection
+      - Different from what we have been doing, and is not supported by Spring
+    - Pros/Cons between all 3
+- [SpringMVC](./notes/SpringMVC.md)
+  - Important Components
+    - DispatcherServlet (configured in `web.xml`)
+    - HandlerMapping (configured in `dispatcherContext.xml`)
+    - ViewResolver (configured in `dispatcherContext.xml`)
+  - ContextLoadListener
+    - Ties the ApplicationContext to the Servlet Container
+  - Control Flow
+    - DispatcherServlet -> HandlerMapping -> ViewResolver (if needed)
+- [SpringAOP](./notes/SpringAOP.md)
+  - Aspect Oriented Programming
+  - Deals with "Aspects" that are "Cross Cutting Concerns"
+    - Security
+    - Logging
+    - Performance Analysis
+    - Caching
+    - Validation
+  - Terminologies
+    - Aspect
+    - Advice
+      - **what** is to be injected
+      - @Before
+      - @After
+        - @AfterReturning
+        - @AfterThrowing
+      - @Around
+        - The most powerful
+        - Allows for both Before and After at the same time
+        - Can even prevent the execution of the method
+    - Join Point
+      - Where you **can** inject
+    - Point Cut
+      - Where you **will** inject
+  - Types of Point Cut Expressions
+    - `execution`
+    - `within`
+    - `this`
+    - `target`
+    - `args`
+    - `@annotation`
+- [Spring Boot & Spring Data](./notes/SpringProjects.md)
+  - Spring Boot
+    - `Convention Over Configuration`
+    - The goal is to provide default configuration to create applications very rapidly
+    - Benefits
+      - Embedded Tomcat Server
+      - Starter Dependencies
+      - `application.properties` file
+        - No more XML
+    - `@SpringBootApplication`
+      - `@Configuration`
+      - `@EnableAutoConfiguration`
+      - `@ComponentScan`
+  - Spring Data JPA
+    - Abstracts away the persistence layer past Hibernate
+    - Effectively builds the entire repository for you
+    - API (Generic Interfaces)
+      - CrudRepository
+        - PagingAndSortingRepository
+          - JpaRepository
+    - Dynamically construct DAO methods based on naming conventions
+    - Supports JPA annotations
+    - `@Query` annotation to write your custom queries
+      - Uses JPQL, Java Persistence Query Language
+      - Similar to HQL, but technically not the same
+    - `@Transactional` annotation
+      - Adds support for `Transaction Propagation Rules`
+      - Examples
+        - If not already in a transaction, begin one
+        - If not already in a transaction, throw an exception
+        - Enforce that a transaction is not happening, otherwise throw an exception
+        - etc
+      - Coupled with `@Modifying` annotation
+        - Required when using `@Query` with `INSERT`, `UPDATE`, or `DELETE`
+  - Spring Data REST
+    - Constructs the entire DAO, Service, and Controller layers for you based on an entity class
+    - VERY Rapid RESTful API setup, but difficult to customize, so we generally don't use it
+- Spring Testing
+  - Introduces Spring's MockMvc feature
+  - Allows you to mock HTTP Requests and assert information about the responses
+  - Can be built eitherr as Unit Tests or Integration Tests, depending on configuration
+  - Abstracted away MockMvc with the addition of the RestAssured library
+    - Specifically the `spring-mock-mvc` artifact from `io.restassured`
+  - Use `standaloneSetup` for Unit Testing and Mock any dependencies with `Mockito`
+  - Use `webContextSetup` for Integration Tests and doesn't support mocking
+  - `@ControllerAdvice`
+    - Allows you to quickly create Aspects for your Controller layer
+    - Uses `@ExceptionHandler` to handle custom logic in reaction to exceptions being thrown
+    - Use `@ResponseStatus` to quickly configure a default response status code from an exception
+      - Either be on the Exception Class itself or on a method in the `ControllerAdvice` Class
+  - Leverage Postman for testing as well
+    - The `Collections` feature to allow you to design your API even before you code it
+    - Helps with the `TDD` style/approach for designing RESTful APIs
+  - Note: Tests within Spring Boot applications seem to use JUnit 5 instead of JUnit 4
+    - JUnit 5 is called `Jupiter`
