@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.messaging.FlashcardEvent;
+import com.revature.messaging.MessageService;
+import com.revature.messaging.Operation;
 import com.revature.models.Flashcard;
 import com.revature.repositories.FlashcardRepository;
 
@@ -22,6 +25,9 @@ public class FlashcardController {
 	
 	@Autowired
 	private FlashcardRepository flashcardDao;
+	
+	@Autowired
+	private MessageService messageService;
 	
 	@Autowired
 	private Environment env;
@@ -70,6 +76,7 @@ public class FlashcardController {
 		}
 		
 		flashcardDao.save(flashcard);
+		this.messageService.triggerFlashcardEvent(new FlashcardEvent(flashcard, Operation.CREATE));
 		return ResponseEntity.status(201).body(flashcard);
 	}
 	
@@ -79,6 +86,7 @@ public class FlashcardController {
 
 		if(option.isPresent()) {
 			flashcardDao.delete(option.get());
+			this.messageService.triggerFlashcardEvent(new FlashcardEvent(option.get(), Operation.DELETE));
 			return ResponseEntity.accepted().body(option.get());
 		}
 		
