@@ -6,3 +6,6 @@ spring:
       discovery:
         enabled: true
         serviceId: config
+  sleuth:    trace-id128: true
+    sampler:      probability: 1.0
+  zipkin:    sender:      type: WEB
