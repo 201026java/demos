@@ -1,0 +1,30 @@
+
+<div>
+<div id="sideNav"> 
+    <table>
+        <tr *ngFor = "let character of characterList"><td><button (click)= "getCharacterInfo(character)">{{character.name}}</button></td></tr>
+    </table>
+
+</div>
+<div id="content">
+    <H1>{{selectedCharacter.name}}</H1>
+
+    <label>School: {{selectedCharacter.school}}</label><br>
+    <label>House: {{selectedCharacter.house}}</label><br>
+    <label>Blood Status: {{selectedCharacter.bloodStatus}}</label><br>
+    <label>Role: {{selectedCharacter.role}}</label><br>
+    <label>Patronus: {{selectedCharacter.patronus}}</label><br>
+    <label>Alias: {{selectedCharacter.alias}}</label><br>
+    <label>Wand: {{selectedCharacter.wand}}</label><br>
+    <label>Boggart: {{selectedCharacter.boggart}}</label><br>
+    <label>Animagus: {{selectedCharacter.animagus}}</label><br>
+    
+    <hr>
+    <h1>Organizations</h1>
+    <label class ="goodGroup" *ngIf="selectedCharacter.dumbledoresArmy">Dumbledore's Army</label><br>
+    <label class ="goodGroup" *ngIf="selectedCharacter.orderOfThePhoenix">Order Of The Pheonix</label><br>
+    <label class="neutralGroup" *ngIf="selectedCharacter.ministryOfMagic">Ministry Of Magic</label><br>
+    <label class="badGroup" *ngIf="selectedCharacter.deathEater">Death Eater</label><br>
+
+</div>
+</div>

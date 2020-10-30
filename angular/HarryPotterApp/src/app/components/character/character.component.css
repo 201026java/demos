@@ -1,0 +1,32 @@
+#sideNav{
+    height: 100%;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 200px;
+    left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    float: left;
+    border: 2px solid black;
+}
+#content{
+    transition: margin-left .5s;
+    padding: 20px;
+    position: fixed;
+    left: 221px;
+}
+label{
+    font-size: large;
+}
+.goodGroup{
+    color: darkgreen;
+}
+.neutralGroup{
+    color: darkorange;
+}
+.badGroup{
+    color: darkred;
+}

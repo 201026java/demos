@@ -1,0 +1,10 @@
+<div>
+    <div id="sideNav">
+        <table>
+            <tr *ngFor="let spell of spellList">
+                <td><button (click)="getSpellInfo(spell)">{{spell.spell}}</button></td>
+            </tr>
+        </table>
+    </div>
+
+</div>

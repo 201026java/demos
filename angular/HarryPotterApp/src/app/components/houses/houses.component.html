@@ -1,0 +1,17 @@
+<div>
+    <div id="sideNav"  [ngStyle]="{'background-color' : color2}">
+        <table>
+            <tr *ngFor="let house of houseList">
+                <td><button (click)="getHouseInfo(house)">{{house.name}}</button></td>
+            </tr>
+        </table>
+    </div>
+    <div id="content" [ngStyle]="{'background-color' : color1}">
+        <H1>{{selectedHouse.name}}</H1>
+        <label>School: {{selectedHouse.school}}</label><br>
+        <label>Founder: {{selectedHouse.founder}}</label><br>
+        <label>Mascot: {{selectedHouse.mascot}}</label><br>
+        <label>House Head: {{selectedHouse.headOfHouse}}</label><br>
+        <label>House Ghost: {{selectedHouse.houseGhost}}</label><br>
+    </div>
+</div>

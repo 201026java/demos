@@ -1,0 +1,31 @@
+<label for="page">Page</label>
+<input type="number" min="0" max="52" step="1" name="page" [(ngModel)]="page">
+<button type="submit" (click)="startFetching()">Submit</button>
+
+<label for="search">Search</label>
+<input type="text" name="search" [(ngModel)]="search">
+
+<p>{{ currentTime | date:'hh:mm:ss' }}</p>
+<p>{{ 99965430563 | currency:'XBT' }}</p>
+<p>{{ "mr. matthew oberlies" | titlecase }}</p>
+
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Height</th>
+    <th>Weight</th>
+    <th>Base Experience</th>
+    <th>Shiny Sprite</th>
+    <th>Default Sprite</th>
+  </tr>
+  <tr *ngFor="let p of this.pokemon | experienceFilter:search">
+    <td>{{p.id}}</td>
+    <td>{{p.name}}</td>
+    <td>{{p.height}}</td>
+    <td>{{p.weight}}</td>
+    <td>{{p.base_experience}}</td>
+    <td><img [src]="p.sprites.front_shiny"></td>
+    <td><img [src]="p.sprites.front_default"></td>
+  </tr>
+</table>
